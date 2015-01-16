@@ -35,12 +35,6 @@
         return JSONOptions;
       }
       
-      function update() {
-      	document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
-      }
-      
-      update();
-      
       var clearButton = document.getElementById("clear_button");
       clearButton.addEventListener("click",
         function () {
@@ -52,7 +46,7 @@
       var submitButton = document.getElementById("save_button");
       submitButton.addEventListener("click", 
         function () {
-          update();
+          document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
         },
         false
       );

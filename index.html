@@ -19,6 +19,11 @@
     <script>
       var notes = document.getElementById("notes");
       
+      var notesInStorage = localStorage.lastNotes;
+      if (notesInStorage !== undefined) {
+      	notes.value = JSON.parse(notesInStorage).notes;
+      }
+      
       function saveOptions() {
       	var notesText = notes.value;
         var options = {
@@ -30,10 +35,11 @@
         return JSONOptions;
       }
       
-      var notesInStorage = localStorage.lastNotes;
-      if (notesInStorage !== undefined) {
-      	notes.value = JSON.parse(notesInStorage).notes;
+      function update() {
+      	document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
       }
+      
+      update();
       
       var clearButton = document.getElementById("clear_button");
       clearButton.addEventListener("click",
@@ -46,7 +52,7 @@
       var submitButton = document.getElementById("save_button");
       submitButton.addEventListener("click", 
         function () {
-          document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
+          update();
         },
         false
       );

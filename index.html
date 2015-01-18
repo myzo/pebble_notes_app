@@ -4,37 +4,53 @@
   	<style>
   	  body {
   		text-align: center;
-  		background-color: #eeffee;
+  		background-color: #ee6666;
+  	  }
+  	  
+  	  h1 {
+  	  	font-family: "Verdana";
   	  }
   	  
   	  #content {
-  	  	height: 430px;
+  	  	height: 480px;
   	  	padding: 2px;
-  	  	background-color: #f1f1f1;
+  	  	background-color: #eeffee;
   	  }
   	  
   	  #notes {
   	  	resize: none;
-  	  	background-color: #f1f1f1;
+  	  	background-color: #eeffee;
   	  }
   		
   	  button {
   		width: 80px;
   		height: 30px;
    	  }
+   	  
+   	  .label {
+   	  	font-weight: bold;
+   	  	font-family: "Arial";
+   	  }
   	</style>
   	
     <title>Notes</title>
   </head>
   <body>
-  	
   	<div id="content">
-      <h1>Configuration</h1>
-      <p>Your notes:</p>
+      <h1>Configurations</h1>
+      <p class="label">Your notes:</p>
 
 	  <form>
 	    <textarea id="notes" cols="18" rows="15"></textarea>
 	  </form>
+	  
+	  <p class="label">
+	  	Text color:
+	  	<select id="text_color">
+	  	  <option value="white">White</option>
+	  	  <option value="black">Black</option>
+	  	</select>
+	  </p>
 
       <p>
         <button id="clear_button">Clear</button>
@@ -44,20 +60,24 @@
 
     <script>
       var notes = document.getElementById("notes");
+      var textColor = document.getElementById("text_color");
       
-      var notesInStorage = localStorage.lastNotes;
-      if (notesInStorage !== undefined) {
-      	notes.value = JSON.parse(notesInStorage).notes;
+      var lastSettings = localStorage.lastSettings;
+      if (lastSettings !== undefined) {
+      	var objectLastSettings = JSON.parse(lastSettings);
+      	notes.value = objectLastSettings.notes;
+      	textColor.value = objectLastSettings.color;
       }
       
       function saveOptions() {
       	var notesText = notes.value;
         var options = {
           "notes": notesText,
-          "notesLength": notesText.length
+          "notesLength": notesText.length,
+          "color": textColor.value
         };
         var JSONOptions = JSON.stringify(options);
-        localStorage.lastNotes = JSONOptions;
+        localStorage.lastSettings = JSONOptions;
         return JSONOptions;
       }
       

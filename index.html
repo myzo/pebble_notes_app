@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Notes Configuration</title>
+  	<style>
+  	  body {
+  		text-align: center;
+  		background-color: #eeffee;
+  	  }
+  	  
+  	  #content {
+  	  	height: 430px;
+  	  	padding: 2px;
+  	  	background-color: #f1f1f1;
+  	  }
+  	  
+  	  #notes {
+  	  	resize: none;
+  	  	background-color: #f1f1f1;
+  	  }
+  		
+  	  button {
+  		width: 80px;
+  		height: 30px;
+   	  }
+  	</style>
+  	
+    <title>Notes</title>
   </head>
   <body>
-    <h1>Notes Configuration</h1>
-    <p>Your notes:</p>
+  	
+  	<div id="content">
+      <h1>Configuration</h1>
+      <p>Your notes:</p>
 
-	<form>
-	  <textarea id="notes" cols="25" rows="5"></textarea>
-	</form>
+	  <form>
+	    <textarea id="notes" cols="18" rows="15"></textarea>
+	  </form>
 
-    <p>
-      <button id="clear_button">Clear</button>
-      <button id="save_button">Save</button>
-    </p>
+      <p>
+        <button id="clear_button">Clear</button>
+        <button id="save_button">Save</button>
+      </p>
+    </div>
 
     <script>
       var notes = document.getElementById("notes");

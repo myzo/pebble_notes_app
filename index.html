@@ -54,13 +54,22 @@
 	  	</select>
 	  </p>
 
-      <button id="clear_button">Clear</button>
+      <p>
+        <button id="clear_button">Clear</button>
+        <button id="save_button">Save</button>
+      </p>
     </div>
 
     <script>
       var notes = document.getElementById("notes");
       var textColor = document.getElementById("text_color");
-      var clearButton = document.getElementById("clear_button");
+      
+      var lastSettings = localStorage.lastSettings;
+      if (lastSettings !== undefined) {
+      	var objectLastSettings = JSON.parse(lastSettings);
+      	notes.value = objectLastSettings.notes;
+      	textColor.value = objectLastSettings.color;
+      }
       
       function saveOptions() {
       	var notesText = notes.value;
@@ -74,13 +83,7 @@
         return JSONOptions;
       }
       
-      var lastSettings = localStorage.lastSettings;
-      if (lastSettings !== undefined) {
-      	var objectLastSettings = JSON.parse(lastSettings);
-      	notes.value = objectLastSettings.notes;
-      	textColor.value = objectLastSettings.color;
-      }
-      
+      var clearButton = document.getElementById("clear_button");
       clearButton.addEventListener("click",
         function () {
           notes.value = "";
@@ -88,9 +91,13 @@
         false
       );
       
-      window.onbeforeunload = function () {
-        document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
-      };
+      var submitButton = document.getElementById("save_button");
+      submitButton.addEventListener("click", 
+        function () {
+          document.location = "pebblejs://close#" + encodeURIComponent(saveOptions());
+        },
+        false
+      );
     </script>
   </body>
 </html>
